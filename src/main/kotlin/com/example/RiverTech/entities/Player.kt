@@ -19,7 +19,7 @@ data class Player(
 
     val name: String,
     val surname: String,
-    val balance: Double = 1000.00
+    var balance: Double = 1000.00
 )
 
 

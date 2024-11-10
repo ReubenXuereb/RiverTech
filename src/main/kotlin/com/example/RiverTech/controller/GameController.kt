@@ -1,5 +1,6 @@
 package com.example.RiverTech.controller
 
+import com.example.RiverTech.entities.Bet
 import com.example.RiverTech.entities.Player
 import com.example.RiverTech.service.GameService
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,5 +17,10 @@ class GameController(private val gameService: GameService) {
     @PostMapping("/register")
     fun registerPlayer(@RequestBody player: Player): Player {
          return gameService.registerPlayer(player.name, player.surname, player.username)
+    }
+
+    @PostMapping("/play")
+    fun placeBet(@RequestBody bet: Bet): Bet {
+        return gameService.play(bet.player.playerId, bet.betNumber, bet.betAmount)
     }
 }
