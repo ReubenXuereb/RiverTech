@@ -12,9 +12,11 @@ import org.jetbrains.annotations.NotNull
 data class Player(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val playerId: Long = 0,
+
     @NotNull
     val username: String,
+
     val name: String,
     val surname: String,
     val balance: Double = 1000.00

@@ -1,15 +1,15 @@
 package com.example.RiverTech.entities
 
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 
-class Transaction(
+@Entity
+@Table(name = "transactions")
+data class Transaction(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
     @ManyToOne
+    @JoinColumn(name = "player_id")
     val player: Player,
     val amount: Double,
     val type: String
