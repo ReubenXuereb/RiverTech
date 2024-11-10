@@ -18,21 +18,11 @@ class GameService(
     private val random: Random
 ) {
 
-    fun registerPlayer(name: String, surname: String, username: String): Player {
-
-        playerRepository.findByUsername(username)?.let {
-            throw IllegalStateException("Username already exists")
-        }
-
-        val playerToRegister = Player(username = username, name = name, surname = surname)
-        return playerRepository.save(playerToRegister)
-    }
-
     fun play(playerId: Long, betNumber: Int, betAmount: Double): Bet {
         val player = playerRepository.findById(playerId).orElseThrow { IllegalStateException("Player not found ! Please register before placing any bets.") }
-        if (player.balance < betAmount) throw IllegalStateException("Insufficient funds ! Can no longer place bets.")
+        if (player.currentBalance < betAmount) throw IllegalStateException("Insufficient funds ! Can no longer place bets.")
 
-        player.balance -= betAmount
+        player.currentBalance -= betAmount
         playerRepository.save(player)
 
         val generateRandomNumber = random.nextInt(1,11)
@@ -40,16 +30,16 @@ class GameService(
         val gameOutcome = if (winnings > 0) "WIN" else "LOSS"
 
         if (winnings > 0) {
-            player.balance += winnings
+            player.currentBalance += winnings
             playerRepository.save(player)
         } else {
             println("Player lost")
         }
 
         if (winnings > 0) {
-            transactionRepository.save(Transaction(player = player, amount = -betAmount, type = "BET", outcome = "WIN", winnings = winnings))
+            transactionRepository.save(Transaction(player = player, amount = -betAmount, type = "BET", outcome = "WIN", winnings = winnings, balanceAfterBet = player.currentBalance))
         } else {
-            transactionRepository.save(Transaction(player = player, amount = -betAmount, type = "BET", outcome = "LOSS", winnings = winnings))
+            transactionRepository.save(Transaction(player = player, amount = -betAmount, type = "BET", outcome = "LOSS", winnings = winnings, balanceAfterBet = player.currentBalance))
         }
 
         return betRepository.save(

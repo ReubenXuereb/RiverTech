@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull
 data class Bet(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val betId: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "player_id")

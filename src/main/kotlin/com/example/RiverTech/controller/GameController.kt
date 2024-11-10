@@ -2,8 +2,10 @@ package com.example.RiverTech.controller
 
 import com.example.RiverTech.entities.Bet
 import com.example.RiverTech.entities.Player
+import com.example.RiverTech.entities.Transaction
 import com.example.RiverTech.service.GameService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,11 +16,6 @@ import java.util.HashSet
 @RestController
 @RequestMapping("/game")
 class GameController(private val gameService: GameService) {
-
-    @PostMapping("/register")
-    fun registerPlayer(@RequestBody player: Player): Player {
-         return gameService.registerPlayer(player.name, player.surname, player.username)
-    }
 
     @PostMapping("/play")
     fun placeBet(@RequestBody bet: Bet): Bet {

@@ -7,7 +7,7 @@ import jakarta.persistence.*
 data class Transaction(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val transactionId: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "player_id")
@@ -16,5 +16,6 @@ data class Transaction(
     val amount: Double,
     val type: String,
     val outcome: String,
-    val winnings: Double
+    val winnings: Double,
+    val balanceAfterBet: Double
 )
