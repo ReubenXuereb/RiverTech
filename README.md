@@ -1,6 +1,4 @@
 # Rivertech Task
-NOTE: If you want to run this project on linux first give the bash script an executable permission by typing ->
-```chmod +x run-app.sh``` and then ```./run-app.sh```. This will initilize the app on http://localhost:9999
 ## Game Service
 ### Endpoints 
 * If you are using Postman go to ./docs -> Rivertech.postman_collection.json and import the endpoints.
@@ -44,7 +42,7 @@ NOTE: If you want to run this project on linux first give the bash script an exe
   }
   ```
 ## Prerequisites
-- Java 23
+- Java 21
 - Maven (latest version)
 - Kotlin 1.9.25
 - Spring boot 3.3.5
