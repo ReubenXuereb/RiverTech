@@ -64,6 +64,12 @@ class GameService(
         )
     }
 
+    fun getTopPlayers(): List<Player> {
+        return playerRepository.findAll()
+            .sortedByDescending { player -> transactionRepository.sumWinnings(player.playerId) }
+            .take(10)
+    }
+
     private fun calculate(betNumber: Int, generatedNumber: Int, betAmount: Double): Double {
         val difference = abs(betNumber - generatedNumber)
 
