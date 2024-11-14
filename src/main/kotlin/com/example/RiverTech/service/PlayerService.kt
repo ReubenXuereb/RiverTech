@@ -15,12 +15,13 @@ class PlayerService(
     fun registerPlayer(name: String, surname: String, username: String): Player {
 
         playerRepository.findByUsername(username)?.let {
-            throw IllegalStateException("Username already exists")
+            throw IllegalStateException("Username already exists !")
         }
 
         val playerToRegister = Player(username = username, name = name, surname = surname)
         return playerRepository.save(playerToRegister)
     }
+
     fun getAllPlayers(): List<Player> {
         return playerRepository.findAll()
     }

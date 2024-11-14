@@ -1,4 +1,4 @@
-package com.example.RiverTech
+package com.example.RiverTech.service
 
 import com.example.RiverTech.entities.Bet
 import com.example.RiverTech.entities.Player
@@ -6,7 +6,6 @@ import com.example.RiverTech.entities.Transaction
 import com.example.RiverTech.repositories.BetRepository
 import com.example.RiverTech.repositories.PlayerRepository
 import com.example.RiverTech.repositories.TransactionRepository
-import com.example.RiverTech.service.GameService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

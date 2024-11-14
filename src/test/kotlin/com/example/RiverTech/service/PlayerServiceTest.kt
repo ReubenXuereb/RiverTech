@@ -1,13 +1,14 @@
-package com.example.RiverTech
+package com.example.RiverTech.service
 
 import com.example.RiverTech.entities.Player
 import com.example.RiverTech.repositories.PlayerRepository
 import com.example.RiverTech.repositories.TransactionRepository
-import com.example.RiverTech.service.PlayerService
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mockito
+import org.mockito.Mockito.any
+import org.mockito.Mockito.mock
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.boot.test.context.SpringBootTest
@@ -22,8 +23,8 @@ class PlayerServiceTest {
 
     @BeforeEach
     fun setUp() {
-        playerRepository = Mockito.mock(PlayerRepository::class.java)
-        transactionRepository = Mockito.mock(TransactionRepository::class.java)
+        playerRepository = mock(PlayerRepository::class.java)
+        transactionRepository = mock(TransactionRepository::class.java)
         playerService = PlayerService(playerRepository, transactionRepository)
 
         playerService = PlayerService(
@@ -40,8 +41,8 @@ class PlayerServiceTest {
         val playerUsername = "reu117"
         val player = Player(1, playerUsername, playerName, playerSurname, 1000.00)
 
-        whenever(playerRepository.findByUsername(playerSurname)).thenReturn(null)
-        whenever(playerRepository.save(Mockito.any())).thenReturn(player)
+        whenever(playerRepository.findByUsername(playerUsername)).thenReturn(null)
+        whenever(playerRepository.save(any())).thenReturn(player)
 
         val playerRegistered = playerService.registerPlayer(playerName,playerSurname,playerUsername)
 
@@ -51,7 +52,7 @@ class PlayerServiceTest {
         assertEquals(playerUsername, playerRegistered.username)
         assertEquals(1000.00, playerRegistered.currentBalance)
 
-        verify(playerRepository, Mockito.times(1)).save(Mockito.any())
+        verify(playerRepository, times(1)).save(any())
     }
 
     @Test
@@ -67,6 +68,6 @@ class PlayerServiceTest {
             playerService.registerPlayer(playerName,playerSurname, playerUsername)
         }
 
-        verify(playerRepository, Mockito.times(0)).save(Mockito.any())
+        verify(playerRepository, times(0)).save(any())
     }
 }
